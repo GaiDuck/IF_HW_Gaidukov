@@ -4,6 +4,6 @@ public class Main
 {
     public static void main(String[] args)
     {
-        //It's the main origin.
+        //It's hotfix origin.
     }
 }
