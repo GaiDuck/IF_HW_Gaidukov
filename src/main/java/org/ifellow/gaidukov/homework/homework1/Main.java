@@ -20,7 +20,7 @@ public class Main
 
     }
 
-    private static final CarToyota ToyotaCamry = new CarToyota("secret","Camry", "Silver", true,
+    private static CarToyota ToyotaCamry = new CarToyota("secret","Camry", "Silver", true,
             210, 8.5, 2007);
     private static final CarToyota ToyotaRav4Prime = new CarToyota("secret","RAV4 Prime", "White", false,
             195, 2.6, 2015);
