@@ -6,19 +6,21 @@ import java.util.List;
 
 public class Main
 {
-    static CarParking parking = new CarParking();
     static CarProcessing processing = new CarProcessing();
 
     public static void main(String[] args)
     {
         //It's hotfix origin.
-        parking.ParkTheCar(ToyotaCamry);
-        System.out.println();
+        //parking.ParkTheCar(ToyotaCamry);
+
         processing.RecolorCars(cars,"Red", "Green");
         System.out.println();
+
         processing.GetInformationAboutCarsReliaseYear(cars, 2016);
         System.out.println();
 
+        processing.PrintNumbersOfCars(cars);
+        processing.GetInformationAboutCar(cars, processing.GetNumberOfCar(cars));
     }
 
     private static final CarToyota ToyotaCamry = new CarToyota("secret","Camry", "Silver", true,
