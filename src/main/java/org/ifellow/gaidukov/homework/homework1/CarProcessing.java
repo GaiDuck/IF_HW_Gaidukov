@@ -42,7 +42,7 @@ public class CarProcessing
     {
         if (carNumber <= cars.size())
         {
-            Car car = cars.get(carNumber);
+            Car car = cars.get(carNumber-1);
             System.out.println("Краткая сводка по вашему автомобилю:\n" +
                     "Название: " + car.getCarBrand() + " " + car.getCarModel() + "\n" +
                     "Цвет: " + car.getCarColor() + "\n" +
