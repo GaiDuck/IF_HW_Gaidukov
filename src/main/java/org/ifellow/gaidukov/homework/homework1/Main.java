@@ -16,7 +16,7 @@ public class Main
         processing.RecolorCars(cars,"Red", "Green");
         System.out.println();
 
-        processing.GetInformationAboutCarsReliaseYear(cars, 2016);
+        processing.GetInformationAboutCarsReleaseYear(cars, 2016);
         System.out.println();
 
         processing.PrintNumbersOfCars(cars);

@@ -21,11 +21,11 @@ public class CarProcessing
         }
     }
 
-    public void GetInformationAboutCarsReliaseYear(List<Car> cars, int minimumReliaseYear)
+    public void GetInformationAboutCarsReleaseYear(List<Car> cars, int minimumReleaseYear)
     {
         for(Car car : cars)
         {
-            if(car.getCarReleaseYear() >= minimumReliaseYear)
+            if(car.getCarReleaseYear() >= minimumReleaseYear)
             {
                 System.out.println("Ваш " + car.getCarBrand() + " " + car.getCarModel() +
                                    " выпущен в " + car.getCarReleaseYear() + " году.");
