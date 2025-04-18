@@ -72,8 +72,7 @@ public class CarProcessing {
 
     public void parkCarsByCarBrand(List<Car> cars) {
         for (int i = 0; i < cars.size(); i = i + 2) {
-            Car car = cars.get(i);
-            car.parkCar();
+            cars.get(i).parkCar();
         }
     }
 }
