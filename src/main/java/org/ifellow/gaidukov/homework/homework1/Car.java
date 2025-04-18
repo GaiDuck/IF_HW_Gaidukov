@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-public abstract class Car
-{
+public abstract class Car {
     private String carBrand;
     private String carModel;
     @Setter
@@ -15,9 +14,7 @@ public abstract class Car
     private double carGasMileage;
     private int carReleaseYear;
 
-    Car(String carBrand, String carModel, String carColor, boolean transmissionIsAutomatic,
-        int carSpeed, double carGasMileage, int carReleaseYear)
-    {
+    protected Car(String carBrand, String carModel, String carColor, boolean transmissionIsAutomatic, int carSpeed, double carGasMileage, int carReleaseYear) {
         this.carBrand = carBrand;
         this.carModel = carModel;
         this.carColor = carColor;
@@ -27,15 +24,16 @@ public abstract class Car
         this.carReleaseYear = carReleaseYear;
     }
 
-    public String GetInformationAboutTransmission()
-    {
+    public String getInformationAboutTransmission() {
         String transmission;
 
-        if(transmissionIsAutomatic)
+        if (transmissionIsAutomatic)
             transmission = "automatic";
         else
             transmission = "manual";
 
         return transmission;
     }
+
+    public abstract void parkCar();
 }
