@@ -1,6 +1,5 @@
 package org.ifellow.gaidukov.IF_HW3;
 
-import com.codeborne.selenide.Browsers;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.AfterEach;

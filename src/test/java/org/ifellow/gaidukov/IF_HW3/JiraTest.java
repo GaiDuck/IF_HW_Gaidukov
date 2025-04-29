@@ -46,7 +46,10 @@ public class JiraTest extends WebHooks {
     @Test
     public void createNewTask() {
         jiraAuthPage.authJiraStep();
-        jiraMainPage.createNewTestTask("Название","Описание", "Описание", "Метка",
-                "Задача", "Эпик", "Спринт");
+        jiraMainPage.createNewTestTask("Название", "Описание", "Описание", "Метка",
+                "TEST-181904", "TEST-174476", "Доска Спринт 1");
+        Selenide.sleep(5000);
+        jiraMainPage.findTask("Название");
+        jiraMainPage.changeTaskStatus();
     }
 }

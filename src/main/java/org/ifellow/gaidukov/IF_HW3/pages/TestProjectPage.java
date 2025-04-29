@@ -5,9 +5,6 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Assertions;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import static com.codeborne.selenide.Selenide.$x;
 
 public class TestProjectPage {

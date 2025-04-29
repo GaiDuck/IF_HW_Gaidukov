@@ -3,10 +3,8 @@ package org.ifellow.gaidukov.IF_HW3.pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.commands.PressEnter;
-import net.bytebuddy.asm.Advice;
+import org.junit.jupiter.api.Assertions;
 
-import java.time.Duration;
 import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -49,6 +47,8 @@ public class JiraMainPage {
             .as("Назначить на себя");
     private final SelenideElement epicLink = $x("//input[@id='customfield_10100-field']")
             .as("Ссылка на эпик");
+    private final SelenideElement selectEpic = $x("//ul[@id='предложения']/li[@id='06/jul/19-3:25-pm-15']")
+            .as("Ссылка на конкретный эпик");
     private final SelenideElement sprintLink = $x("//input[@id='customfield_10104-field']")
             .as("Ссылка на спринт");
     private final SelenideElement seriousness = $x("//select[@id='customfield_10400']")
@@ -57,8 +57,11 @@ public class JiraMainPage {
             .as("Минорный");
     private final SelenideElement confurmCreatingNewTask = $x("//input[@id='create-issue-submit']")
             .as("кнопка Создать в окне создания задачи");
-
-
+    private final SelenideElement buttonWorkInProgress = $x("//span[text()='В работе']");
+    private final SelenideElement dropDownBuisnessProcess = $x("//span[text()='Бизнес-процесс']");
+    private final SelenideElement buttonDone = $x("//span[text()='Выполнено']");
+    private final SelenideElement taskStatus = $x("//span[@id='status-val']/span")
+            .as("Статус задачи");
 
 
     public void chooseProjectStep() {
@@ -78,7 +81,7 @@ public class JiraMainPage {
         creareNewTask.shouldBe(Condition.visible).click();
         taskTitle.shouldBe(Condition.clickable).sendKeys(title);
 
-        if(Objects.equals(buttonVisualDiscription.getAttribute("aria-pressed"), "false")) {
+        if (Objects.equals(buttonVisualDiscription.getAttribute("aria-pressed"), "false")) {
             buttonVisualDiscription.click();
         }
 
@@ -89,7 +92,7 @@ public class JiraMainPage {
         marks.shouldBe(Condition.enabled).sendKeys(mark);
         marks.pressEnter();
         buttonVisualEnvironment.shouldBe(Condition.visible).scrollIntoView(true).click();
-        textFieldEnvironment.shouldBe(Condition.enabled).sendKeys(environment);
+        //textFieldEnvironment.shouldBe(Condition.enabled).sendKeys(environment);
         affecteVersion.shouldBe(Condition.clickable).click();
         affectedTask.shouldBe(Condition.clickable).click();
         affectedTaskOption.shouldBe(Condition.clickable).click();
@@ -100,5 +103,13 @@ public class JiraMainPage {
         seriousness.shouldBe(Condition.clickable).click();
         minor.shouldBe(Condition.clickable).click();
         confurmCreatingNewTask.shouldBe(Condition.clickable).click();
+    }
+
+    public void changeTaskStatus() {
+        buttonWorkInProgress.shouldBe(Condition.enabled).click();
+        dropDownBuisnessProcess.shouldBe(Condition.enabled).click();
+        buttonDone.shouldBe(Condition.enabled).click();
+        Selenide.refresh();
+        Assertions.assertEquals("ГОТОВО", taskStatus.getText());
     }
 }
