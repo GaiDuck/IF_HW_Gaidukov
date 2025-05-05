@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.switchTo;
 
 public class JiraMainPage {
     private final SelenideElement projectsButton = $x("//a[@id='browse_link']")
@@ -24,10 +25,12 @@ public class JiraMainPage {
             .as("кнопка 'Визуальный' рядом с полем Описание");
     private final SelenideElement buttonVisualEnvironment = $x("//div[@id='environment-wiki-edit']//button[text()='Визуальный']")
             .as("кнопка 'Визуальный' рядом с полем Окружение");
-    private final SelenideElement textFieldDiscription = $x("//div[@id='description-wiki-edit']//textarea")
-            .as("текстовое поле Описание");
-    private final SelenideElement textFieldEnvironment = $x("//body[@id='tinymce']")
-            .as("текстовое поле Окружение");
+    private final SelenideElement descriptionIframe = $x("//div[@id='description-wiki-edit']//iframe")
+            .as("IFRAME 'описание'");
+    private final SelenideElement environmentIframe = $x("//div[@id='environment-wiki-edit']//iframe")
+            .as("IFRAME 'описание'");
+    private final SelenideElement iFrameTextArea = $x("//body[@id='tinymce']")
+            .as("Текстовое поле Iframe");
     private final SelenideElement versionToFix = $x("//select[@id='fixVersions']//option[@value='10001']")
             .as("Исправить в версиях");
     private final SelenideElement priority = $x("//input[@id='priority-field']")
@@ -85,30 +88,37 @@ public class JiraMainPage {
             buttonVisualDiscription.click();
         }
 
-        textFieldDiscription.sendKeys(discription);
+        switchTo().frame(descriptionIframe);
+        iFrameTextArea.shouldBe(Condition.enabled).sendKeys("Описание");
+        switchTo().defaultContent();
         versionToFix.click();
         priority.shouldBe(Condition.enabled).sendKeys("Low");
         priority.pressEnter();
         marks.shouldBe(Condition.enabled).sendKeys(mark);
         marks.pressEnter();
         buttonVisualEnvironment.shouldBe(Condition.visible).scrollIntoView(true).click();
-        //textFieldEnvironment.shouldBe(Condition.enabled).sendKeys(environment);
+        switchTo().frame(environmentIframe);
+        iFrameTextArea.shouldBe(Condition.enabled).sendKeys("Окружение");
+        switchTo().defaultContent();
         affecteVersion.shouldBe(Condition.clickable).click();
         affectedTask.shouldBe(Condition.clickable).click();
         affectedTaskOption.shouldBe(Condition.clickable).click();
         task.shouldBe(Condition.clickable).sendKeys(taskName);
+        buttonVisualDiscription.click();
         assignTaskToYourselfButton.shouldBe(Condition.clickable).click();
         epicLink.shouldBe(Condition.clickable).sendKeys(epic);
+        buttonVisualDiscription.click();
         sprintLink.shouldBe(Condition.clickable).sendKeys(sprint);
+        buttonVisualDiscription.click();
         seriousness.shouldBe(Condition.clickable).click();
         minor.shouldBe(Condition.clickable).click();
         confurmCreatingNewTask.shouldBe(Condition.clickable).click();
     }
 
     public void changeTaskStatus() {
-        buttonWorkInProgress.shouldBe(Condition.enabled).click();
-        dropDownBuisnessProcess.shouldBe(Condition.enabled).click();
-        buttonDone.shouldBe(Condition.enabled).click();
+        buttonWorkInProgress.shouldBe(Condition.clickable).click();
+        dropDownBuisnessProcess.shouldBe(Condition.clickable).click();
+        buttonDone.shouldBe(Condition.clickable).click();
         Selenide.refresh();
         Assertions.assertEquals("ГОТОВО", taskStatus.getText());
     }

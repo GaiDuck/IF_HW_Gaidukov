@@ -5,6 +5,7 @@ import org.ifellow.gaidukov.IF_HW3.pages.JiraAuthPage;
 import org.ifellow.gaidukov.IF_HW3.pages.JiraMainPage;
 import org.ifellow.gaidukov.IF_HW3.pages.TestProjectPage;
 import org.ifellow.gaidukov.IF_HW3.pages.TestTaskPage;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class JiraTest extends WebHooks {
@@ -19,17 +20,20 @@ public class JiraTest extends WebHooks {
     private String taskVersion = "Version 2.0";
 
     @Test
+    @DisplayName("Авторизация в Jira")
     public void authJira() {
         jiraAuthPage.authJiraStep();
     }
 
     @Test
+    @DisplayName("Переход в проект 'Test(TEST)'")
     public void openTestProject() {
         jiraAuthPage.authJiraStep();
         jiraMainPage.chooseProjectStep();
     }
 
     @Test
+    @DisplayName("Проверка счетчика задач")
     public void checkTaskCounter() {
         jiraAuthPage.authJiraStep();
         jiraMainPage.chooseProjectStep();
@@ -37,6 +41,7 @@ public class JiraTest extends WebHooks {
     }
 
     @Test
+    @DisplayName("Проверка задачи")
     public void checkTask() {
         jiraAuthPage.authJiraStep();
         jiraMainPage.findTask(taskName);
@@ -44,11 +49,12 @@ public class JiraTest extends WebHooks {
     }
 
     @Test
+    @DisplayName("Создание задачи")
     public void createNewTask() {
         jiraAuthPage.authJiraStep();
         jiraMainPage.createNewTestTask("Название", "Описание", "Описание", "Метка",
                 "TEST-181904", "TEST-174476", "Доска Спринт 1");
-        Selenide.sleep(5000);
+        Selenide.refresh();
         jiraMainPage.findTask("Название");
         jiraMainPage.changeTaskStatus();
     }
