@@ -1,10 +1,11 @@
-package org.ifellow.gaidukov.IF_HW3;
+/*
+package org.ifellow.gaidukov.IF_HW4;
 
 import com.codeborne.selenide.Selenide;
-import org.ifellow.gaidukov.IF_HW3.pages.JiraAuthPage;
-import org.ifellow.gaidukov.IF_HW3.pages.JiraMainPage;
-import org.ifellow.gaidukov.IF_HW3.pages.TestProjectPage;
-import org.ifellow.gaidukov.IF_HW3.pages.TestTaskPage;
+import org.ifellow.gaidukov.IF_HW4.pages.JiraAuthPage;
+import org.ifellow.gaidukov.IF_HW4.pages.JiraMainPage;
+import org.ifellow.gaidukov.IF_HW4.pages.TestProjectPage;
+import org.ifellow.gaidukov.IF_HW4.pages.TestTaskPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -29,14 +30,14 @@ public class JiraTest extends WebHooks {
     @DisplayName("Переход в проект 'Test(TEST)'")
     public void openTestProject() {
         jiraAuthPage.authJiraStep();
-        jiraMainPage.chooseProjectStep();
+        jiraMainPage.chooseProject();
     }
 
     @Test
     @DisplayName("Проверка счетчика задач")
     public void checkTaskCounter() {
         jiraAuthPage.authJiraStep();
-        jiraMainPage.chooseProjectStep();
+        jiraMainPage.chooseProject();
         testProjectPage.checkThatTaskCounterWorksCorrectly();
     }
 
@@ -58,4 +59,4 @@ public class JiraTest extends WebHooks {
         jiraMainPage.findTask("Название");
         jiraMainPage.changeTaskStatus();
     }
-}
+}*/

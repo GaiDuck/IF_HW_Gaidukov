@@ -1,7 +1,6 @@
-package org.ifellow.gaidukov.IF_HW3.pages;
+package org.ifellow.gaidukov.IF_HW4.pages;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Assertions;
 
@@ -17,26 +16,23 @@ public class TestProjectPage {
     private final SelenideElement confurmCreatingNewTask = $x("//input[@id='create-issue-submit']")
             .as("кнопка Создать в окне создания задачи");
 
+    private int firstNumberOfTasks;
+    private int secondNumberOfTasks;
 
-    public void checkThatTaskCounterWorksCorrectly() {
-        Assertions.assertTrue(currentNumberOfAllNumbers.isDisplayed());
+    public void discardNumbersOfTasks() {
+        firstNumberOfTasks = 0;
+        secondNumberOfTasks = 0;
+    }
 
-        int firstNumberOfTasks = Integer.parseInt(currentNumberOfAllNumbers.getText().split(" ")[2]);
+    public void setFirstNumberOfTasks() {
+        firstNumberOfTasks = Integer.parseInt(currentNumberOfAllNumbers.shouldBe(Condition.visible).getText().split(" ")[2]);
+    }
 
-        Assertions.assertTrue(creareNewTask.isDisplayed());
-        creareNewTask.click();
+    public void setSecondNumberOfTasks() {
+        secondNumberOfTasks = Integer.parseInt(currentNumberOfAllNumbers.shouldBe(Condition.visible).getText().split(" ")[2]);
+    }
 
-        taskTitle.shouldBe(Condition.clickable).click();
-        taskTitle.sendKeys("test");
-
-        Assertions.assertTrue(confurmCreatingNewTask.isDisplayed());
-        confurmCreatingNewTask.click();
-        currentNumberOfAllNumbers.shouldBe(Condition.visible);
-
-        Selenide.refresh();
-        currentNumberOfAllNumbers.shouldBe(Condition.visible);
-        int secondNumberOfTasks = Integer.parseInt(currentNumberOfAllNumbers.getText().split(" ")[2]);
-
+    public void assertThatSecondNumberIsBigger() {
         Assertions.assertTrue(secondNumberOfTasks > firstNumberOfTasks);
     }
 }

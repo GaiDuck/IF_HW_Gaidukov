@@ -1,4 +1,4 @@
-package org.ifellow.gaidukov.IF_HW3;
+package org.ifellow.gaidukov.IF_HW4;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;

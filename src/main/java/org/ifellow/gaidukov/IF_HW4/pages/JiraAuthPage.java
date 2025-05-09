@@ -1,12 +1,12 @@
-package org.ifellow.gaidukov.IF_HW3.pages;
+package org.ifellow.gaidukov.IF_HW4.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.junit.jupiter.api.Assertions;
 
 import static com.codeborne.selenide.Selenide.$x;
 
 public class JiraAuthPage {
-    private final SelenideElement loginField = $x("//input[@name='os_username']")
+    public final SelenideElement loginField = $x("//input[@name='os_username']")
             .as("поле Логин");
     private final SelenideElement passwordField = $x("//input[@name='os_password']")
             .as("поле Пароль");
@@ -16,16 +16,15 @@ public class JiraAuthPage {
     private static final String USER_LOGIN = "AT10";
     private static final String USER_PASSWORD = "Qwerty123";
 
-    public void authJiraStep() {
-        Assertions.assertTrue(loginField.isDisplayed());
-        loginField.click();
-        loginField.sendKeys(USER_LOGIN);
+    public void enterLogin() {
+        loginField.shouldBe(Condition.enabled).sendKeys(USER_LOGIN);
+    }
 
-        Assertions.assertTrue(passwordField.isDisplayed());
-        passwordField.click();
-        passwordField.sendKeys(USER_PASSWORD);
+    public void enterPassword() {
+        passwordField.shouldBe(Condition.enabled).sendKeys(USER_PASSWORD);
+    }
 
-        Assertions.assertTrue(loginButton.isDisplayed());
-        loginButton.click();
+    public void loginButtonClick() {
+        loginButton.shouldBe(Condition.clickable).click();
     }
 }

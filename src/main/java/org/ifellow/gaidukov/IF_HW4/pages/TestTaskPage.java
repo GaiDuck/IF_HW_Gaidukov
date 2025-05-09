@@ -1,4 +1,4 @@
-package org.ifellow.gaidukov.IF_HW3.pages;
+package org.ifellow.gaidukov.IF_HW4.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;

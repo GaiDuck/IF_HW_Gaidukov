@@ -1,4 +1,4 @@
-package org.ifellow.gaidukov.IF_HW3.pages;
+package org.ifellow.gaidukov.IF_HW4.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
@@ -67,59 +67,109 @@ public class JiraMainPage {
             .as("Статус задачи");
 
 
-    public void chooseProjectStep() {
+    public void chooseProject() {
         projectsButton.shouldBe(Condition.visible).click();
         testProjectButton.shouldBe(Condition.visible).click();
     }
 
     public void findTask(String taskName) {
-        projectsButton.shouldBe(Condition.visible);
         taskSeach.shouldBe(Condition.visible).click();
         taskSeach.sendKeys(taskName);
         taskSeach.pressEnter();
     }
 
-    public void createNewTestTask(String title, String discription, String environment, String mark, String taskName,
-                                  String epic, String sprint) {
+    public void createNewTestTask() {
         creareNewTask.shouldBe(Condition.visible).click();
-        taskTitle.shouldBe(Condition.clickable).sendKeys(title);
+    }
 
+    public void enterTaskTitle(String title) {
+        taskTitle.shouldBe(Condition.clickable).sendKeys(title);
+    }
+
+    public void chooseVisualState() {
         if (Objects.equals(buttonVisualDiscription.getAttribute("aria-pressed"), "false")) {
-            buttonVisualDiscription.click();
+            buttonVisualDiscription.shouldBe(Condition.enabled).click();
         }
 
+        if (Objects.equals(buttonVisualEnvironment.getAttribute("aria-pressed"), "false")) {
+            buttonVisualEnvironment.shouldBe(Condition.enabled).click();
+        }
+    }
+
+    public void fillDescriptionTextField(String descriptionText) {
         switchTo().frame(descriptionIframe);
-        iFrameTextArea.shouldBe(Condition.enabled).sendKeys("Описание");
+        iFrameTextArea.shouldBe(Condition.enabled).sendKeys(descriptionText);
         switchTo().defaultContent();
-        versionToFix.click();
-        priority.shouldBe(Condition.enabled).sendKeys("Low");
-        priority.pressEnter();
-        marks.shouldBe(Condition.enabled).sendKeys(mark);
-        marks.pressEnter();
-        buttonVisualEnvironment.shouldBe(Condition.visible).scrollIntoView(true).click();
+    }
+
+    public void fillEnvironmentTextField(String environmentText) {
         switchTo().frame(environmentIframe);
-        iFrameTextArea.shouldBe(Condition.enabled).sendKeys("Окружение");
+        iFrameTextArea.shouldBe(Condition.enabled).sendKeys(environmentText);
         switchTo().defaultContent();
+    }
+
+    public void chooseVersionToFix() {
+        versionToFix.click();
+    }
+
+    public void choosePriority(String priorityText) {
+        priority.shouldBe(Condition.enabled).sendKeys(priorityText);
+        priority.pressEnter();
+    }
+
+    public void chooseMark(String markText) {
+        marks.shouldBe(Condition.enabled).sendKeys(markText);
+        marks.pressEnter();
+    }
+
+    public void chooseAffectedVersion() {
         affecteVersion.shouldBe(Condition.clickable).click();
+    }
+
+    public void chooseAffectedTask() {
         affectedTask.shouldBe(Condition.clickable).click();
         affectedTaskOption.shouldBe(Condition.clickable).click();
-        task.shouldBe(Condition.clickable).sendKeys(taskName);
+    }
+
+    public void chooseTask(String taskName) {
+        task.shouldBe(Condition.enabled).sendKeys(taskName);
         buttonVisualDiscription.click();
+    }
+
+    public void assignTaskToYourSelf() {
         assignTaskToYourselfButton.shouldBe(Condition.clickable).click();
+    }
+
+    public void chooseEpic(String epic) {
         epicLink.shouldBe(Condition.clickable).sendKeys(epic);
         buttonVisualDiscription.click();
+    }
+
+    public void chooseSprint(String sprint) {
         sprintLink.shouldBe(Condition.clickable).sendKeys(sprint);
         buttonVisualDiscription.click();
+    }
+
+    public void chooseSeriousness() {
         seriousness.shouldBe(Condition.clickable).click();
         minor.shouldBe(Condition.clickable).click();
+    }
+
+    public void confurmCreatingNewTask() {
         confurmCreatingNewTask.shouldBe(Condition.clickable).click();
     }
 
-    public void changeTaskStatus() {
+    public void setWorkInProgressStatus() {
         buttonWorkInProgress.shouldBe(Condition.clickable).click();
+    }
+
+    public void setDoneStatus() {
         dropDownBuisnessProcess.shouldBe(Condition.clickable).click();
         buttonDone.shouldBe(Condition.clickable).click();
         Selenide.refresh();
-        Assertions.assertEquals("ГОТОВО", taskStatus.getText());
+    }
+
+    public void assertTaskStatus(String status) {
+        Assertions.assertEquals(status, taskStatus.getText());
     }
 }
