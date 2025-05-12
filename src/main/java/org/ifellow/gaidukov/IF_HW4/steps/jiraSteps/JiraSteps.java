@@ -1,4 +1,4 @@
-package org.ifellow.gaidukov.IF_HW4.steps;
+package org.ifellow.gaidukov.IF_HW4.steps.jiraSteps;
 
 import com.codeborne.selenide.Selenide;
 import io.cucumber.java.ru.Когда;

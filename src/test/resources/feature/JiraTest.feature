@@ -1,4 +1,5 @@
 # language: ru
+@qa
 
 Функция: Проверка Jira
 
