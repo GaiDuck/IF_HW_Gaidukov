@@ -1,4 +1,4 @@
-package org.ifellow.gaidukov.IF_HW4.webhooks;
+package org.ifellow.gaidukov.IF_HW4.hook;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;

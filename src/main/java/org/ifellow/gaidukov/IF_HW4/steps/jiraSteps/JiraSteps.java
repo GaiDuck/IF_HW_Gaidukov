@@ -1,12 +1,17 @@
 package org.ifellow.gaidukov.IF_HW4.steps.jiraSteps;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import org.ifellow.gaidukov.IF_HW4.pages.JiraAuthPage;
 import org.ifellow.gaidukov.IF_HW4.pages.JiraMainPage;
 import org.ifellow.gaidukov.IF_HW4.pages.TestProjectPage;
 import org.ifellow.gaidukov.IF_HW4.pages.TestTaskPage;
+import org.openqa.selenium.PageLoadStrategy;
+
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class JiraSteps {
 
@@ -14,6 +19,20 @@ public class JiraSteps {
     JiraMainPage jiraMainPage = new JiraMainPage();
     TestProjectPage testProjectPage = new TestProjectPage();
     TestTaskPage testTaskPage = new TestTaskPage();
+
+    @Дано("^Запустил браузер, открыл страницу Jira")
+    public void initBrowser() {
+        Configuration.pageLoadStrategy = PageLoadStrategy.NORMAL.toString();
+        Configuration.timeout = 5000;
+
+        Selenide.open("https://edujira.ifellow.ru/secure/Dashboard.jspa");
+        getWebDriver().manage().window().maximize();
+    }
+
+    @Тогда("^Убил браузер")
+    public void shutBrowser() {
+        Selenide.closeWebDriver();
+    }
 
     @Когда("^Залогинился в системе Jira")
     public void authJira() {
@@ -96,11 +115,6 @@ public class JiraSteps {
     public void confirmCreatingNewTask() {
         jiraMainPage.confurmCreatingNewTask();
         Selenide.refresh();
-    }
-
-    @Когда("^Нашел задачу '(.*)'")
-    public void findTaskByTitle(String taskTitle) {
-        jiraMainPage.findTask(taskTitle);
     }
 
     @Когда("^Установил статус В РАБОТЕ")
