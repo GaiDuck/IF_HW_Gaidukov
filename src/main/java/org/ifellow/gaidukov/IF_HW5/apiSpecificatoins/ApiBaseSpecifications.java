@@ -1,4 +1,4 @@
-package org.ifellow.gaidukov.IF_HW5;
+package org.ifellow.gaidukov.IF_HW5.apiSpecificatoins;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -6,6 +6,9 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+
+//TODO: Сделать класс абстрактным и унаследовать от него RickAndMortyApiSpecification
+//TODO: Сделать класс абстрактным и унаследовать от него ReqresApiSpecification
 
 public class ApiBaseSpecifications {
 

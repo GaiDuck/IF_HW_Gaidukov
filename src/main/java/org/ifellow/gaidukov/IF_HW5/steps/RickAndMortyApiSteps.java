@@ -1,14 +1,13 @@
-package org.ifellow.gaidukov.IF_HW5;
+package org.ifellow.gaidukov.IF_HW5.steps;
 
+import io.restassured.RestAssured;
 import org.ifellow.gaidukov.IF_HW5.dto.Character;
 import org.ifellow.gaidukov.IF_HW5.dto.Episode;
-
-import static io.restassured.RestAssured.given;
 
 public class RickAndMortyApiSteps {
 
     public Character getCharacterById(String id) {
-        return given()
+        return RestAssured.given()
                 .when()
                 .get("character/" + id)
                 .then()
@@ -19,7 +18,7 @@ public class RickAndMortyApiSteps {
     }
 
     public Character getCharactersByName(String name, int number) {
-        return given()
+        return RestAssured.given()
                 .when()
                 .get("character?name=" + name)
                 .then()
@@ -30,7 +29,7 @@ public class RickAndMortyApiSteps {
     }
 
     public Character getCharactersByName(String name) {
-        return given()
+        return RestAssured.given()
                 .when()
                 .get("character?name=" + name)
                 .then()
@@ -40,7 +39,7 @@ public class RickAndMortyApiSteps {
                 .getObject("results[0]", Character.class);
     }
 
-    public String getUrlFromClass(Character character) {
+    public String getUrlFromCharacterClass(Character character) {
         return character.episode.getLast();
     }
 
@@ -50,7 +49,7 @@ public class RickAndMortyApiSteps {
     }
 
     public Episode getEpisodeByNumber(String episodeNumber) {
-        Episode episode = given()
+        return RestAssured.given()
                 .when()
                 .get("episode/" + episodeNumber)
                 .then()
@@ -58,7 +57,6 @@ public class RickAndMortyApiSteps {
                 .body()
                 .jsonPath()
                 .getObject("$", Episode.class);
-        return episode;
     }
 
 }

@@ -1,7 +1,9 @@
 package org.ifellow.gaidukov.IF_HW5;
 
 import io.restassured.RestAssured;
+import org.ifellow.gaidukov.IF_HW5.apiSpecificatoins.ApiBaseSpecifications;
 import org.ifellow.gaidukov.IF_HW5.dto.Character;
+import org.ifellow.gaidukov.IF_HW5.steps.RickAndMortyApiSteps;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +31,7 @@ public class RickAndMortyApiTest {
     public void getLastCharactersEpisode() {
         String episodeNumber =
                 steps.numberByUrl(
-                        steps.getUrlFromClass(
+                        steps.getUrlFromCharacterClass(
                                 steps.getCharactersByName("Morty Smith")));
         Assertions.assertEquals("51", episodeNumber);
     }
@@ -42,7 +44,7 @@ public class RickAndMortyApiTest {
                         steps.numberByUrl(
                                 steps.getEpisodeByNumber(
                                                 steps.numberByUrl(
-                                                        steps.getUrlFromClass(
+                                                        steps.getUrlFromCharacterClass(
                                                                 steps.getCharactersByName("Morty Smith"))))
                                         .characters.getLast()))
                         .name;
@@ -57,7 +59,7 @@ public class RickAndMortyApiTest {
                         steps.numberByUrl(
                                 steps.getEpisodeByNumber(
                                                 steps.numberByUrl(
-                                                        steps.getUrlFromClass(
+                                                        steps.getUrlFromCharacterClass(
                                                                 steps.getCharactersByName("Morty Smith"))))
                                         .characters.getLast()))
                         .location
@@ -73,7 +75,7 @@ public class RickAndMortyApiTest {
                         steps.numberByUrl(
                                 steps.getEpisodeByNumber(
                                                 steps.numberByUrl(
-                                                        steps.getUrlFromClass(
+                                                        steps.getUrlFromCharacterClass(
                                                                 steps.getCharactersByName("Morty Smith"))))
                                         .characters.getLast()))
                         .species;
@@ -93,7 +95,7 @@ public class RickAndMortyApiTest {
                         steps.numberByUrl(
                                 steps.getEpisodeByNumber(
                                                 steps.numberByUrl(
-                                                        steps.getUrlFromClass(
+                                                        steps.getUrlFromCharacterClass(
                                                                 steps.getCharactersByName("Morty Smith"))))
                                         .characters.getLast()))
                         .location
@@ -114,7 +116,7 @@ public class RickAndMortyApiTest {
                         steps.numberByUrl(
                                 steps.getEpisodeByNumber(
                                                 steps.numberByUrl(
-                                                        steps.getUrlFromClass(
+                                                        steps.getUrlFromCharacterClass(
                                                                 steps.getCharactersByName("Morty Smith"))))
                                         .characters.getLast()))
                         .species;
