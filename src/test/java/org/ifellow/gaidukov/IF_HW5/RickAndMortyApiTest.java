@@ -1,7 +1,6 @@
 package org.ifellow.gaidukov.IF_HW5;
 
 import io.restassured.RestAssured;
-import io.restassured.response.ValidatableResponse;
 import org.ifellow.gaidukov.IF_HW5.dto.Character;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class RickAndMortyApiTest {
 
-    Steps steps = new Steps();
+    RickAndMortyApiSteps steps = new RickAndMortyApiSteps();
 
     @BeforeAll
     public static void setUp() {
@@ -20,12 +19,106 @@ public class RickAndMortyApiTest {
 
     @Test
     @DisplayName("Проверка получения персонажа по имени.")
-    public void getResponce() {
-        ValidatableResponse responce = steps.getCharactersByName("Morty Smith");
-        Assertions.assertNotNull(responce);
-        Character character = steps.getCharacterFromResponce(0, responce);
-        Assertions.assertEquals(character.name, "Morty Smith");
+    public void getCharacterByName() {
+        Character character = steps.getCharactersByName("Morty Smith", 0);
+        Assertions.assertEquals("Morty Smith", character.name);
     }
 
+    @Test
+    @DisplayName("Проверка получения последнего эпизода по имени персонажа.")
+    public void getLastCharactersEpisode() {
+        String episodeNumber =
+                steps.numberByUrl(
+                        steps.getUrlFromClass(
+                                steps.getCharactersByName("Morty Smith")));
+        Assertions.assertEquals("51", episodeNumber);
+    }
 
+    @Test
+    @DisplayName("Проверка получения последнего персонажа из эпизода")
+    public void getLastEpisodesCharacter() {
+        String characterName =
+                steps.getCharacterById(
+                        steps.numberByUrl(
+                                steps.getEpisodeByNumber(
+                                                steps.numberByUrl(
+                                                        steps.getUrlFromClass(
+                                                                steps.getCharactersByName("Morty Smith"))))
+                                        .characters.getLast()))
+                        .name;
+        Assertions.assertEquals("Young Jerry", characterName);
+    }
+
+    @Test
+    @DisplayName("Проверка получения местонахождения персонажа")
+    public void getCharacterLocation() {
+        String characterLocation =
+                steps.getCharacterById(
+                        steps.numberByUrl(
+                                steps.getEpisodeByNumber(
+                                                steps.numberByUrl(
+                                                        steps.getUrlFromClass(
+                                                                steps.getCharactersByName("Morty Smith"))))
+                                        .characters.getLast()))
+                        .location
+                        .name;
+        Assertions.assertEquals("Earth (Unknown dimension)", characterLocation);
+    }
+
+    @Test
+    @DisplayName("Проверка расы персонажа")
+    public void getCharacterSpecies() {
+        String characterSpecies =
+                steps.getCharacterById(
+                        steps.numberByUrl(
+                                steps.getEpisodeByNumber(
+                                                steps.numberByUrl(
+                                                        steps.getUrlFromClass(
+                                                                steps.getCharactersByName("Morty Smith"))))
+                                        .characters.getLast()))
+                        .species;
+        Assertions.assertEquals("Human", characterSpecies);
+    }
+
+    @Test
+    @DisplayName("Проверка несовпадения местонахождения двух персонажей")
+    public void compareCharactersLocation() {
+        String firstCharacterLocation =
+                steps.getCharactersByName("Morty Smith")
+                        .location
+                        .name;
+
+        String secondCharacterLocation =
+                steps.getCharacterById(
+                        steps.numberByUrl(
+                                steps.getEpisodeByNumber(
+                                                steps.numberByUrl(
+                                                        steps.getUrlFromClass(
+                                                                steps.getCharactersByName("Morty Smith"))))
+                                        .characters.getLast()))
+                        .location
+                        .name;
+
+        Assertions.assertNotEquals(firstCharacterLocation, secondCharacterLocation);
+    }
+
+    @Test
+    @DisplayName("Проверка совпадения расы двух персонажей")
+    public void compareCharactersSpecies() {
+        String firstCharacterSpecies =
+                steps.getCharactersByName("Morty Smith")
+                        .species;
+
+        String secondCharacterSpecies =
+                steps.getCharacterById(
+                        steps.numberByUrl(
+                                steps.getEpisodeByNumber(
+                                                steps.numberByUrl(
+                                                        steps.getUrlFromClass(
+                                                                steps.getCharactersByName("Morty Smith"))))
+                                        .characters.getLast()))
+                        .species;
+
+        Assertions.assertEquals(firstCharacterSpecies, secondCharacterSpecies);
+    }
 }
