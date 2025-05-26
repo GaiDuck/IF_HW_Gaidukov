@@ -7,9 +7,6 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
-//TODO: Сделать класс абстрактным и унаследовать от него RickAndMortyApiSpecification
-//TODO: Сделать класс абстрактным и унаследовать от него ReqresApiSpecification
-
 public class ApiBaseSpecifications {
 
     public static RequestSpecification baseRequestSpec(String url) {
