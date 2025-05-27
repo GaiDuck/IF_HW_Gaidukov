@@ -1,6 +1,5 @@
 package org.ifellow.gaidukov.IF_HW5;
 
-import io.restassured.RestAssured;
 import org.ifellow.gaidukov.IF_HW5.apiSpecificatoins.ApiBaseSpecifications;
 import org.ifellow.gaidukov.IF_HW5.dto.Character;
 import org.ifellow.gaidukov.IF_HW5.steps.RickAndMortyApiSteps;
@@ -9,20 +8,24 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static io.restassured.RestAssured.requestSpecification;
+import static io.restassured.RestAssured.responseSpecification;
+
 public class RickAndMortyApiTest {
 
     RickAndMortyApiSteps steps = new RickAndMortyApiSteps();
 
     @BeforeAll
-    public static void setUp() {
-        RestAssured.requestSpecification = ApiBaseSpecifications.baseRequestSpec(Properties.RICK_AND_MORTY_CHARACTER_URL);
-        RestAssured.responseSpecification = ApiBaseSpecifications.baseResponceSpecSucsess();
+    public static void setUpAll() {
+        PropertyProcesser prop = new PropertyProcesser();
+        requestSpecification = ApiBaseSpecifications.baseRequestSpec(prop.getProp("RICK_AND_MORTY_URI"));
+        responseSpecification = ApiBaseSpecifications.baseResponceSpecSucsess();
     }
 
     @Test
     @DisplayName("Проверка получения персонажа по имени.")
     public void getCharacterByName() {
-        Character character = steps.getCharactersByName("Morty Smith", 0);
+        Character character = steps.getCharactersByName("Morty Smith");
         Assertions.assertEquals("Morty Smith", character.name);
     }
 
@@ -42,11 +45,7 @@ public class RickAndMortyApiTest {
         String characterName =
                 steps.getCharacterById(
                         steps.numberByUrl(
-                                steps.getEpisodeByNumber(
-                                                steps.numberByUrl(
-                                                        steps.getUrlFromCharacterClass(
-                                                                steps.getCharactersByName("Morty Smith"))))
-                                        .characters.getLast()))
+                                steps.getLastCoworkerByName("Morty Smith")))
                         .name;
         Assertions.assertEquals("Young Jerry", characterName);
     }
@@ -57,11 +56,7 @@ public class RickAndMortyApiTest {
         String characterLocation =
                 steps.getCharacterById(
                         steps.numberByUrl(
-                                steps.getEpisodeByNumber(
-                                                steps.numberByUrl(
-                                                        steps.getUrlFromCharacterClass(
-                                                                steps.getCharactersByName("Morty Smith"))))
-                                        .characters.getLast()))
+                                steps.getLastCoworkerByName("Morty Smith")))
                         .location
                         .name;
         Assertions.assertEquals("Earth (Unknown dimension)", characterLocation);
@@ -73,11 +68,7 @@ public class RickAndMortyApiTest {
         String characterSpecies =
                 steps.getCharacterById(
                         steps.numberByUrl(
-                                steps.getEpisodeByNumber(
-                                                steps.numberByUrl(
-                                                        steps.getUrlFromCharacterClass(
-                                                                steps.getCharactersByName("Morty Smith"))))
-                                        .characters.getLast()))
+                                steps.getLastCoworkerByName("Morty Smith")))
                         .species;
         Assertions.assertEquals("Human", characterSpecies);
     }
@@ -93,11 +84,7 @@ public class RickAndMortyApiTest {
         String secondCharacterLocation =
                 steps.getCharacterById(
                         steps.numberByUrl(
-                                steps.getEpisodeByNumber(
-                                                steps.numberByUrl(
-                                                        steps.getUrlFromCharacterClass(
-                                                                steps.getCharactersByName("Morty Smith"))))
-                                        .characters.getLast()))
+                                steps.getLastCoworkerByName("Morty Smith")))
                         .location
                         .name;
 
@@ -114,11 +101,7 @@ public class RickAndMortyApiTest {
         String secondCharacterSpecies =
                 steps.getCharacterById(
                         steps.numberByUrl(
-                                steps.getEpisodeByNumber(
-                                                steps.numberByUrl(
-                                                        steps.getUrlFromCharacterClass(
-                                                                steps.getCharactersByName("Morty Smith"))))
-                                        .characters.getLast()))
+                                steps.getLastCoworkerByName("Morty Smith")))
                         .species;
 
         Assertions.assertEquals(firstCharacterSpecies, secondCharacterSpecies);

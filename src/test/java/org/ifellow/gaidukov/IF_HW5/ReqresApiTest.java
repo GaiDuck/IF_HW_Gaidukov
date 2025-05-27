@@ -1,6 +1,5 @@
 package org.ifellow.gaidukov.IF_HW5;
 
-import io.restassured.RestAssured;
 import org.ifellow.gaidukov.IF_HW5.apiSpecificatoins.ApiBaseSpecifications;
 import org.ifellow.gaidukov.IF_HW5.dto.User;
 import org.ifellow.gaidukov.IF_HW5.steps.ReqresApiSteps;
@@ -9,14 +8,19 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static io.restassured.RestAssured.requestSpecification;
+import static io.restassured.RestAssured.responseSpecification;
+
 public class ReqresApiTest {
 
     ReqresApiSteps steps = new ReqresApiSteps();
+    PropertyProcesser prop = new PropertyProcesser();
 
     @BeforeAll
     public static void setUp() {
-        RestAssured.requestSpecification = ApiBaseSpecifications.baseRequestSpec(Properties.REQRES_URL);
-        RestAssured.responseSpecification = ApiBaseSpecifications.baseResponceSpecSucsess();
+        PropertyProcesser prop = new PropertyProcesser();
+        requestSpecification = ApiBaseSpecifications.baseRequestSpec(prop.getProp("REQRES_URI"));
+        responseSpecification = ApiBaseSpecifications.baseResponceSpecSucsess();
     }
 
     @Test
@@ -24,8 +28,7 @@ public class ReqresApiTest {
     public void postNewUser() {
         User user = Mapper.readJsonFile("src/test/resources/Reqres.json", User.class);
         steps.postNewUser(user);
-        Assertions.assertEquals("Tomato", user.name);
-        Assertions.assertEquals("Market", user.job);
+        Assertions.assertEquals(prop.getProp("USER_NAME"), user.name);
+        Assertions.assertEquals(prop.getProp("USER_JOB"), user.job);
     }
-
 }
