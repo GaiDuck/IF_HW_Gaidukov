@@ -1,26 +1,14 @@
 package org.ifellow.gaidukov.IF_HW5;
 
-import org.ifellow.gaidukov.IF_HW5.apiSpecificatoins.ApiBaseSpecifications;
 import org.ifellow.gaidukov.IF_HW5.dto.Character;
 import org.ifellow.gaidukov.IF_HW5.steps.RickAndMortyApiSteps;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.requestSpecification;
-import static io.restassured.RestAssured.responseSpecification;
-
-public class RickAndMortyApiTest {
+public class RickAndMortyApiTest extends RickAndMortyHook {
 
     RickAndMortyApiSteps steps = new RickAndMortyApiSteps();
-
-    @BeforeAll
-    public static void setUpAll() {
-        PropertyProcesser prop = new PropertyProcesser();
-        requestSpecification = ApiBaseSpecifications.baseRequestSpec(prop.getProp("RICK_AND_MORTY_URI"));
-        responseSpecification = ApiBaseSpecifications.baseResponceSpecSucsess();
-    }
 
     @Test
     @DisplayName("Проверка получения персонажа по имени.")
