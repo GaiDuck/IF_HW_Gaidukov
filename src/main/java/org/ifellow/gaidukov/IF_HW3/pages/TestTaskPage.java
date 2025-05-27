@@ -2,6 +2,7 @@ package org.ifellow.gaidukov.IF_HW3.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -12,6 +13,7 @@ public class TestTaskPage {
     private final SelenideElement taskVersion = $x("//span[@id='fixVersions-field']/a")
             .as("Версия задачи");
 
+    @Step("Проверить статус и версию задачи")
     public void checkTaskData(String status, String version) {
         taskStatus.shouldBe(Condition.visible);
         Assertions.assertEquals(taskStatus.getText(), status);

@@ -3,6 +3,7 @@ package org.ifellow.gaidukov.IF_HW3.pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -17,7 +18,7 @@ public class TestProjectPage {
     private final SelenideElement confurmCreatingNewTask = $x("//input[@id='create-issue-submit']")
             .as("кнопка Создать в окне создания задачи");
 
-
+    @Step("Проверить корректность работы счетчика задач")
     public void checkThatTaskCounterWorksCorrectly() {
         Assertions.assertTrue(currentNumberOfAllNumbers.isDisplayed());
 

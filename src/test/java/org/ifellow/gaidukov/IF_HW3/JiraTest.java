@@ -1,6 +1,8 @@
 package org.ifellow.gaidukov.IF_HW3;
 
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Feature;
+import org.ifellow.gaidukov.IF_HW3.PropertyProcessor.PropertyProcessor;
 import org.ifellow.gaidukov.IF_HW3.pages.JiraAuthPage;
 import org.ifellow.gaidukov.IF_HW3.pages.JiraMainPage;
 import org.ifellow.gaidukov.IF_HW3.pages.TestProjectPage;
@@ -8,6 +10,7 @@ import org.ifellow.gaidukov.IF_HW3.pages.TestTaskPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@Feature("Тестирование Jira")
 public class JiraTest extends WebHooks {
 
     private JiraAuthPage jiraAuthPage = new JiraAuthPage();
@@ -15,9 +18,7 @@ public class JiraTest extends WebHooks {
     private TestProjectPage testProjectPage = new TestProjectPage();
     private TestTaskPage testTaskPage = new TestTaskPage();
 
-    private String taskName = "TestSeleniumATHomework";
-    private String taskStatus = "СДЕЛАТЬ";
-    private String taskVersion = "Version 2.0";
+    PropertyProcessor prop = new PropertyProcessor();
 
     @Test
     @DisplayName("Авторизация в Jira")
@@ -44,8 +45,8 @@ public class JiraTest extends WebHooks {
     @DisplayName("Проверка задачи")
     public void checkTask() {
         jiraAuthPage.authJiraStep();
-        jiraMainPage.findTask(taskName);
-        testTaskPage.checkTaskData(taskStatus, taskVersion);
+        jiraMainPage.findTask(prop.getProp("TASK_NAME"));
+        testTaskPage.checkTaskData(prop.getProp("taskStatus"), prop.getProp("taskVersion"));
     }
 
     @Test

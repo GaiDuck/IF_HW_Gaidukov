@@ -3,6 +3,7 @@ package org.ifellow.gaidukov.IF_HW3.pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.Objects;
@@ -66,12 +67,13 @@ public class JiraMainPage {
     private final SelenideElement taskStatus = $x("//span[@id='status-val']/span")
             .as("Статус задачи");
 
-
+    @Step("Выбрать проект")
     public void chooseProjectStep() {
         projectsButton.shouldBe(Condition.visible).click();
         testProjectButton.shouldBe(Condition.visible).click();
     }
 
+    @Step("Найти задачу")
     public void findTask(String taskName) {
         projectsButton.shouldBe(Condition.visible);
         taskSeach.shouldBe(Condition.visible).click();
@@ -79,6 +81,7 @@ public class JiraMainPage {
         taskSeach.pressEnter();
     }
 
+    @Step("Создать новую задачу")
     public void createNewTestTask(String title, String discription, String environment, String mark, String taskName,
                                   String epic, String sprint) {
         creareNewTask.shouldBe(Condition.visible).click();
@@ -115,6 +118,7 @@ public class JiraMainPage {
         confurmCreatingNewTask.shouldBe(Condition.clickable).click();
     }
 
+    @Step("Поменять статус задачи")
     public void changeTaskStatus() {
         buttonWorkInProgress.shouldBe(Condition.clickable).click();
         dropDownBuisnessProcess.shouldBe(Condition.clickable).click();
