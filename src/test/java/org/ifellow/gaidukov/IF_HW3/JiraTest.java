@@ -18,12 +18,13 @@ public class JiraTest extends WebHooks {
     private TestProjectPage testProjectPage = new TestProjectPage();
     private TestTaskPage testTaskPage = new TestTaskPage();
 
-    PropertyProcessor prop = new PropertyProcessor();
+    PropertyProcessor userProp = new PropertyProcessor();
 
     @Test
     @DisplayName("Авторизация в Jira")
     public void authJira() {
         jiraAuthPage.authJiraStep();
+        jiraMainPage.projectsButtonIsDisplayed();
     }
 
     @Test
@@ -45,8 +46,8 @@ public class JiraTest extends WebHooks {
     @DisplayName("Проверка задачи")
     public void checkTask() {
         jiraAuthPage.authJiraStep();
-        jiraMainPage.findTask(prop.getProp("TASK_NAME"));
-        testTaskPage.checkTaskData(prop.getProp("taskStatus"), prop.getProp("taskVersion"));
+        jiraMainPage.findTask("TestSeleniumATHomework");
+        testTaskPage.checkTaskData();
     }
 
     @Test

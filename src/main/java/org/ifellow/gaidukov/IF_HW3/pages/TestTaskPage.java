@@ -14,10 +14,10 @@ public class TestTaskPage {
             .as("Версия задачи");
 
     @Step("Проверить статус и версию задачи")
-    public void checkTaskData(String status, String version) {
+    public void checkTaskData() {
         taskStatus.shouldBe(Condition.visible);
-        Assertions.assertEquals(taskStatus.getText(), status);
+        Assertions.assertEquals("СДЕЛАТЬ", taskStatus.getText());
         taskVersion.shouldBe(Condition.visible);
-        Assertions.assertEquals(taskVersion.getText(), version);
+        Assertions.assertEquals("Version 2.0", taskVersion.getText());
     }
 }

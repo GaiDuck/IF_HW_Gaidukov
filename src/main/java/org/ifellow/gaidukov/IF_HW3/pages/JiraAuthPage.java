@@ -5,6 +5,8 @@ import io.qameta.allure.Step;
 import org.ifellow.gaidukov.IF_HW3.PropertyProcessor.PropertyProcessor;
 import org.junit.jupiter.api.Assertions;
 
+import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class JiraAuthPage {
@@ -20,12 +22,12 @@ public class JiraAuthPage {
 
     @Step("Авторизация в Jira")
     public void authJiraStep() {
+        loginField.shouldBe(enabled, visible);
         Assertions.assertTrue(loginField.isDisplayed());
-        loginField.click();
         loginField.sendKeys(prop.getProp("USER_LOGIN"));
 
+        passwordField.shouldBe(enabled, visible);
         Assertions.assertTrue(passwordField.isDisplayed());
-        passwordField.click();
         passwordField.sendKeys(prop.getProp("USER_PASSWORD"));
 
         Assertions.assertTrue(loginButton.isDisplayed());

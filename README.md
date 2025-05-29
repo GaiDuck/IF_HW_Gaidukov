@@ -6,7 +6,7 @@
 
 1. Java 17
 2. Junit 5 - тестовый фреймворк
-3. Selenide - надстройка над Selenide webDriver
+3. Selenide - надстройка над Selenium webDriver
 4. Allure - для формирования удобных отчетов
 5. Maven - сборщик проекта
 
@@ -26,5 +26,7 @@
 
 1. Сборка и запуск всех тестов:              
    `mvn clean test`
-2. Генерация Allure-отчёта (откроет отчёт в браузере)        
+2. Генерация Allure-отчёта
+   `mvn allure:report`
+3. Отображение Allure-отчета (откроет отчёт в браузере)      
    `mvn allure:serve`  

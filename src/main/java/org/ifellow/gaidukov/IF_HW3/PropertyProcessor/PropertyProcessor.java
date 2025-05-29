@@ -8,7 +8,7 @@ public class PropertyProcessor {
 
     public String getProp(String propertyName) {
         Properties prop = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("Allure.properties")) {
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("user.properties")) {
             prop.load(input);
         } catch (IOException e) {
             throw new RuntimeException(e);

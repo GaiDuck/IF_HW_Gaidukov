@@ -1,13 +1,14 @@
 package org.ifellow.gaidukov.IF_HW3.pages;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 
+import java.time.Duration;
 import java.util.Objects;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.switchTo;
 
@@ -63,20 +64,26 @@ public class JiraMainPage {
             .as("кнопка Создать в окне создания задачи");
     private final SelenideElement buttonWorkInProgress = $x("//span[text()='В работе']");
     private final SelenideElement dropDownBuisnessProcess = $x("//span[text()='Бизнес-процесс']");
-    private final SelenideElement buttonDone = $x("//span[text()='Выполнено']");
+    private final SelenideElement buttonDone = $x("//span[text()='Выполнено']//ancestor::aui-item-link");
     private final SelenideElement taskStatus = $x("//span[@id='status-val']/span")
             .as("Статус задачи");
+    private final SelenideElement notificationCloseButton = $x("//div[@id='aui-flag-container']//button[@class='aui-close-button']");
+
+    @Step("Проверил, что кнопка Проекты отображается")
+    public void projectsButtonIsDisplayed() {
+        projectsButton.shouldBe(visible);
+    }
 
     @Step("Выбрать проект")
     public void chooseProjectStep() {
-        projectsButton.shouldBe(Condition.visible).click();
-        testProjectButton.shouldBe(Condition.visible).click();
+        projectsButton.shouldBe(visible).click();
+        testProjectButton.shouldBe(visible).click();
     }
 
     @Step("Найти задачу")
     public void findTask(String taskName) {
-        projectsButton.shouldBe(Condition.visible);
-        taskSeach.shouldBe(Condition.visible).click();
+        projectsButton.shouldBe(visible);
+        taskSeach.shouldBe(visible).click();
         taskSeach.sendKeys(taskName);
         taskSeach.pressEnter();
     }
@@ -84,45 +91,55 @@ public class JiraMainPage {
     @Step("Создать новую задачу")
     public void createNewTestTask(String title, String discription, String environment, String mark, String taskName,
                                   String epic, String sprint) {
-        creareNewTask.shouldBe(Condition.visible).click();
-        taskTitle.shouldBe(Condition.clickable).sendKeys(title);
+        creareNewTask.shouldBe(visible).click();
+        taskTitle.shouldBe(clickable).sendKeys(title);
 
         if (Objects.equals(buttonVisualDiscription.getAttribute("aria-pressed"), "false")) {
             buttonVisualDiscription.click();
         }
 
         switchTo().frame(descriptionIframe);
-        iFrameTextArea.shouldBe(Condition.enabled).sendKeys("Описание");
+        iFrameTextArea.shouldBe(enabled).sendKeys("Описание");
         switchTo().defaultContent();
         versionToFix.click();
-        priority.shouldBe(Condition.enabled).sendKeys("Low");
+        priority.shouldBe(enabled).sendKeys("Low");
         priority.pressEnter();
-        marks.shouldBe(Condition.enabled).sendKeys(mark);
+        marks.shouldBe(enabled).sendKeys(mark);
         marks.pressEnter();
-        buttonVisualEnvironment.shouldBe(Condition.visible).scrollIntoView(true).click();
+        buttonVisualEnvironment.shouldBe(visible).scrollIntoView(true).click();
         switchTo().frame(environmentIframe);
-        iFrameTextArea.shouldBe(Condition.enabled).sendKeys("Окружение");
+        iFrameTextArea.shouldBe(enabled).sendKeys("Окружение");
         switchTo().defaultContent();
-        affecteVersion.shouldBe(Condition.clickable).click();
-        affectedTask.shouldBe(Condition.clickable).click();
-        affectedTaskOption.shouldBe(Condition.clickable).click();
-        task.shouldBe(Condition.clickable).sendKeys(taskName);
+        affecteVersion.shouldBe(clickable).click();
+        affectedTask.shouldBe(clickable).click();
+        affectedTaskOption.shouldBe(clickable).click();
+        task.shouldBe(clickable).sendKeys(taskName);
         buttonVisualDiscription.click();
-        assignTaskToYourselfButton.shouldBe(Condition.clickable).click();
-        epicLink.shouldBe(Condition.clickable).sendKeys(epic);
+        assignTaskToYourselfButton.shouldBe(clickable).click();
+        epicLink.shouldBe(clickable).sendKeys(epic);
         buttonVisualDiscription.click();
-        sprintLink.shouldBe(Condition.clickable).sendKeys(sprint);
+        sprintLink.shouldBe(clickable).sendKeys(sprint);
         buttonVisualDiscription.click();
-        seriousness.shouldBe(Condition.clickable).click();
-        minor.shouldBe(Condition.clickable).click();
-        confurmCreatingNewTask.shouldBe(Condition.clickable).click();
+        seriousness.shouldBe(clickable).click();
+        minor.shouldBe(clickable).click();
+        confurmCreatingNewTask.shouldBe(clickable).click();
     }
 
     @Step("Поменять статус задачи")
     public void changeTaskStatus() {
-        buttonWorkInProgress.shouldBe(Condition.clickable).click();
-        dropDownBuisnessProcess.shouldBe(Condition.clickable).click();
-        buttonDone.shouldBe(Condition.clickable).click();
+        buttonWorkInProgress.shouldBe(clickable).click();
+        for (int i = 0; i < 1500; i++) {
+            if (!taskStatus.getText().equals("В РАБОТЕ")) {
+                Selenide.sleep(10);
+            } else if (taskStatus.getText().equals("В РАБОТЕ")) {
+                break;
+            }
+        }
+        if (notificationCloseButton.isDisplayed()) {
+            notificationCloseButton.click();
+        }
+        dropDownBuisnessProcess.shouldBe(clickable).click();
+        buttonDone.shouldBe(clickable, Duration.ofMillis(1000)).click();
         Selenide.refresh();
         Assertions.assertEquals("ГОТОВО", taskStatus.getText());
     }
