@@ -2,7 +2,6 @@ package org.ifellow.gaidukov.IF_HW3;
 
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
-import org.ifellow.gaidukov.IF_HW3.PropertyProcessor.PropertyProcessor;
 import org.ifellow.gaidukov.IF_HW3.pages.JiraAuthPage;
 import org.ifellow.gaidukov.IF_HW3.pages.JiraMainPage;
 import org.ifellow.gaidukov.IF_HW3.pages.TestProjectPage;
@@ -13,12 +12,10 @@ import org.junit.jupiter.api.Test;
 @Feature("Тестирование Jira")
 public class JiraTest extends WebHooks {
 
-    private JiraAuthPage jiraAuthPage = new JiraAuthPage();
-    private JiraMainPage jiraMainPage = new JiraMainPage();
-    private TestProjectPage testProjectPage = new TestProjectPage();
-    private TestTaskPage testTaskPage = new TestTaskPage();
-
-    PropertyProcessor userProp = new PropertyProcessor();
+    private final JiraAuthPage jiraAuthPage = new JiraAuthPage();
+    private final JiraMainPage jiraMainPage = new JiraMainPage();
+    private final TestProjectPage testProjectPage = new TestProjectPage();
+    private final TestTaskPage testTaskPage = new TestTaskPage();
 
     @Test
     @DisplayName("Авторизация в Jira")
@@ -54,7 +51,7 @@ public class JiraTest extends WebHooks {
     @DisplayName("Создание задачи")
     public void createNewTask() {
         jiraAuthPage.authJiraStep();
-        jiraMainPage.createNewTestTask("Название", "Описание", "Описание", "Метка",
+        jiraMainPage.createNewTestTask("Название", "Метка",
                 "TEST-181904", "TEST-174476", "Доска Спринт 1");
         Selenide.refresh();
         jiraMainPage.findTask("Название");

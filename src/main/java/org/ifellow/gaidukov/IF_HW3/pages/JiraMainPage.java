@@ -37,7 +37,6 @@ public class JiraMainPage {
             .as("Исправить в версиях");
     private final SelenideElement priority = $x("//input[@id='priority-field']")
             .as("Приоритет");
-    private final SelenideElement lowPriority = $x("//li[@id='low-617']").as("Низкий приоритет");
     private final SelenideElement marks = $x("//textarea[@id='labels-textarea']")
             .as("Метки");
     private final SelenideElement affecteVersion = $x("//select[@id='versions']//option[@value='10000']")
@@ -52,8 +51,6 @@ public class JiraMainPage {
             .as("Назначить на себя");
     private final SelenideElement epicLink = $x("//input[@id='customfield_10100-field']")
             .as("Ссылка на эпик");
-    private final SelenideElement selectEpic = $x("//ul[@id='предложения']/li[@id='06/jul/19-3:25-pm-15']")
-            .as("Ссылка на конкретный эпик");
     private final SelenideElement sprintLink = $x("//input[@id='customfield_10104-field']")
             .as("Ссылка на спринт");
     private final SelenideElement seriousness = $x("//select[@id='customfield_10400']")
@@ -89,7 +86,7 @@ public class JiraMainPage {
     }
 
     @Step("Создать новую задачу")
-    public void createNewTestTask(String title, String discription, String environment, String mark, String taskName,
+    public void createNewTestTask(String title, String mark, String taskName,
                                   String epic, String sprint) {
         creareNewTask.shouldBe(visible).click();
         taskTitle.shouldBe(clickable).sendKeys(title);
