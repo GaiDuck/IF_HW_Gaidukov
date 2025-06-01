@@ -20,21 +20,21 @@ public class JiraTest extends WebHooks {
     @Test
     @DisplayName("Авторизация в Jira")
     public void authJira() {
-        jiraAuthPage.authJiraStep();
+        jiraAuthPage.secretAuthJiraStep();
         jiraMainPage.projectsButtonIsDisplayed();
     }
 
     @Test
     @DisplayName("Переход в проект 'Test(TEST)'")
     public void openTestProject() {
-        jiraAuthPage.authJiraStep();
+        jiraAuthPage.secretAuthJiraStep();
         jiraMainPage.chooseProjectStep();
     }
 
     @Test
     @DisplayName("Проверка счетчика задач")
     public void checkTaskCounter() {
-        jiraAuthPage.authJiraStep();
+        jiraAuthPage.secretAuthJiraStep();
         jiraMainPage.chooseProjectStep();
         testProjectPage.checkThatTaskCounterWorksCorrectly();
     }
@@ -42,7 +42,7 @@ public class JiraTest extends WebHooks {
     @Test
     @DisplayName("Проверка задачи")
     public void checkTask() {
-        jiraAuthPage.authJiraStep();
+        jiraAuthPage.secretAuthJiraStep();
         jiraMainPage.findTask("TestSeleniumATHomework");
         testTaskPage.checkTaskData();
     }
@@ -50,7 +50,7 @@ public class JiraTest extends WebHooks {
     @Test
     @DisplayName("Создание задачи")
     public void createNewTask() {
-        jiraAuthPage.authJiraStep();
+        jiraAuthPage.secretAuthJiraStep();
         jiraMainPage.createNewTestTask("Название", "Метка",
                 "TEST-181904", "TEST-174476", "Доска Спринт 1");
         Selenide.refresh();

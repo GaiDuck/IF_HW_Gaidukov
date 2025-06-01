@@ -1,4 +1,4 @@
-package org.ifellow.gaidukov.IF_HW3.PropertyProcessor;
+package org.ifellow.gaidukov.IF_HW3.features;
 
 import java.io.IOException;
 import java.io.InputStream;

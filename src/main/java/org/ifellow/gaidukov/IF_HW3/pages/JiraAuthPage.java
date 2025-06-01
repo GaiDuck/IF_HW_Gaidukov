@@ -2,12 +2,12 @@ package org.ifellow.gaidukov.IF_HW3.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.ifellow.gaidukov.IF_HW3.PropertyProcessor.PropertyProcessor;
-import org.junit.jupiter.api.Assertions;
+import org.ifellow.gaidukov.IF_HW3.features.PropertyProcessor;
 
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.SetValueOptions.withText;
 
 public class JiraAuthPage {
 
@@ -21,16 +21,10 @@ public class JiraAuthPage {
     PropertyProcessor prop = new PropertyProcessor();
 
     @Step("Авторизация в Jira")
-    public void authJiraStep() {
-        loginField.shouldBe(enabled, visible);
-        Assertions.assertTrue(loginField.isDisplayed());
-        loginField.sendKeys(prop.getProp("USER_LOGIN"));
-
-        passwordField.shouldBe(enabled, visible);
-        Assertions.assertTrue(passwordField.isDisplayed());
-        passwordField.sendKeys(prop.getProp("USER_PASSWORD"));
-
-        Assertions.assertTrue(loginButton.isDisplayed());
-        loginButton.click();
+    public void secretAuthJiraStep() {
+        loginField.shouldBe(enabled, visible).setValue(prop.getProp("USER_LOGIN"));
+        passwordField.shouldBe(enabled, visible).
+                setValue(withText(prop.getProp("USER_PASSWORD")).sensitive());
+        loginButton.shouldBe(enabled, visible).click();
     }
 }
