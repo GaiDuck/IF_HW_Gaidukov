@@ -1,9 +1,10 @@
-package org.ifellow.gaidukov.IF_HW3;
+package org.ifellow.gaidukov.IF_HW3.hooks;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.ifellow.gaidukov.IF_HW3.features.PropertyProcessor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,9 +16,11 @@ public class WebHooks {
 
     @BeforeAll
     public static void setUpAllure() {
+        PropertyProcessor prop = new PropertyProcessor();
+
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
-                .screenshots(true)
-                .savePageSource(true));
+                .screenshots(Boolean.getBoolean(prop.getProp("saveScreenshots", "ALLURE")))
+                .savePageSource(Boolean.getBoolean(prop.getProp("savePageValue", "ALLURE"))));
     }
 
     @AfterEach

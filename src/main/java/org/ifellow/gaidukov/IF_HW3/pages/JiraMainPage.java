@@ -66,7 +66,7 @@ public class JiraMainPage {
             .as("Статус задачи");
     private final SelenideElement notificationCloseButton = $x("//div[@id='aui-flag-container']//button[@class='aui-close-button']");
 
-    @Step("Проверил, что кнопка Проекты отображается")
+    @Step("Проверить, что кнопка Проекты отображается")
     public void projectsButtonIsDisplayed() {
         projectsButton.shouldBe(visible);
     }

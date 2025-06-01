@@ -85,6 +85,7 @@
                     <argLine>
                         -Dfile.encoding=${project.build.sourceEncoding}
                         -Dallure.config=src/test/resources/allure.properties
+                        -Dallure.config=src/test/resources/junit-platform.properties
                     </argLine>
                 </configuration>
             </plugin>
