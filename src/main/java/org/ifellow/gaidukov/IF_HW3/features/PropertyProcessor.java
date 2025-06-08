@@ -16,6 +16,7 @@ public class PropertyProcessor {
             case "ALLURE" -> propertyFileName = "allure.properties";
             case "TASK" -> propertyFileName = "task.properties";
             case "TEST_TASK" -> propertyFileName = "testTask.properties";
+            default -> throw new RuntimeException();
         }
 
         try (InputStream input = getClass().getClassLoader().getResourceAsStream(propertyFileName)) {
