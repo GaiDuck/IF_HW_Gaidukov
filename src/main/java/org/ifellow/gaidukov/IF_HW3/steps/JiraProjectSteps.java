@@ -1,6 +1,5 @@
 package org.ifellow.gaidukov.IF_HW3.steps;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import org.ifellow.gaidukov.IF_HW3.pages.JiraProjectPage;
@@ -22,7 +21,7 @@ public class JiraProjectSteps extends JiraProjectPage {
         confurmCreatingNewTask.shouldBe(enabled, visible).click();
 
         Selenide.refresh();
-        currentNumberOfAllNumbers.shouldBe(Condition.visible);
+        currentNumberOfAllNumbers.shouldBe(enabled, visible);
         int secondNumberOfTasks = Integer.parseInt(currentNumberOfAllNumbers.getText().split(" ")[2]);
 
         Assertions.assertTrue(secondNumberOfTasks > firstNumberOfTasks);
