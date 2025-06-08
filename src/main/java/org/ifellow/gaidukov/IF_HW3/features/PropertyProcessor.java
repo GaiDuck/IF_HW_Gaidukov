@@ -11,10 +11,11 @@ public class PropertyProcessor {
         Properties prop = new Properties();
         String propertyFileName = null;
 
-        if (propertyType == "USER") {
-            propertyFileName = "user.properties";
-        } else if (propertyType == "ALLURE") {
-            propertyFileName = "allure.properties";
+        switch (propertyType) {
+            case "USER" -> propertyFileName = "user.properties";
+            case "ALLURE" -> propertyFileName = "allure.properties";
+            case "TASK" -> propertyFileName = "task.properties";
+            case "TEST_TASK" -> propertyFileName = "testTask.properties";
         }
 
         try (InputStream input = getClass().getClassLoader().getResourceAsStream(propertyFileName)) {
@@ -22,6 +23,7 @@ public class PropertyProcessor {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         return prop.getProperty(propertyName);
     }
 }
